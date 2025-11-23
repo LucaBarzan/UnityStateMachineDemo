@@ -2,31 +2,24 @@ using UnityEngine;
 
 public class PhysicsController2D : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rigidbody2D;
+    public Vector2 Velocity => velocity;
+
+    [SerializeField] private Rigidbody2D _rigidbody2D;
 
     private Vector2 velocity;
-    private Vector2 additionalVelocity;
     private Vector2 baseVelocity;
-    private Vector2 overrideVelocity;
-    private bool overrideActive;
 
     private void FixedUpdate()
     {
-        if (rigidbody2D == null)
+        if (_rigidbody2D == null)
             return;
-
-        // Override and Additional velocity changes must be carried over
-        if (overrideActive)
-            velocity = overrideVelocity;
-
-        velocity += additionalVelocity;
 
         // Base force cannot be accumulated to not increase over time
         var finalVelocity = velocity + baseVelocity;
-        rigidbody2D.linearVelocity = finalVelocity;
+        
+        _rigidbody2D.linearVelocity = finalVelocity;
 
-        additionalVelocity = baseVelocity = overrideVelocity = Vector2.zero;
-        overrideActive = false;
+        baseVelocity = Vector2.zero;
     }
 
     /// <summary>
@@ -42,7 +35,7 @@ public class PhysicsController2D : MonoBehaviour
         {
             default:
             case AdditionalVelocityType.Additional:
-                additionalVelocity += velocity;
+                this.velocity += velocity;
 
                 break;
             case AdditionalVelocityType.Base:
@@ -54,15 +47,8 @@ public class PhysicsController2D : MonoBehaviour
     // TODO
     // public abstract void ApplyImpulseForce(Vector2 force);
 
-    /// <summary>
-    /// Overrides the current velocity with the specified force.
-    /// </summary>
-    /// <remarks>This method directly sets the velocity to the specified force, replacing any existing
-    /// velocity. Use this method to explicitly control the object's movement.</remarks>
-    /// <param name="force">The force to apply, represented as a <see cref="Vector2"/>.</param>
-    public virtual void OverrideVelocity(Vector2 force)
+    public void SetVelocity(Vector2 velocity)
     {
-        overrideActive = true;
-        overrideVelocity = force;
+        this.velocity = velocity;
     }
 }

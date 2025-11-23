@@ -2,14 +2,15 @@ using UnityEngine;
 
 public abstract class State : MonoBehaviour
 {
-    public StateMachineBlackboard Blackboard;
-    public bool isComplete { get; protected set; }
+    public bool IsComplete { get; protected set; }
+    public virtual bool IsAvailable => true;
 
     private float startTime;
 
     public float TimePassed => Time.time - startTime;
 
-    private void Awake() => enabled = false;
+
+    protected virtual void Awake() => enabled = false;
 
     public virtual void Enter()
     {

@@ -3,18 +3,20 @@ using UnityEngine.InputSystem;
 
 public class Player : Character
 {
-    [SerializeField] PhysicsController2D characterMovement;
-    [SerializeField] InputActionReference input_Movement;
     [SerializeField] InputActionReference input_Jump;
     [SerializeField] InputActionReference input_Slide;
+    [SerializeField] SurfaceContactSensor contactSensor;
     [SerializeField] GroundedState groundedState;
     [SerializeField] AirborneState airborneState;
-    
-    private Vector2 inputDirection;
+    [SerializeField] JumpState jumpState;
+
+    //[SerializeField] ;
+
+    private readonly StateMachine stateMachine = new StateMachine();
 
     private void Awake()
     {
-        
+        stateMachine.Set(airborneState);
     }
 
     private void OnEnable()
@@ -24,18 +26,17 @@ public class Player : Character
 
     private void Start()
     {
-        
+
     }
 
     private void Update()
     {
-        if (input_Movement.action.enabled)
-            inputDirection = input_Movement.action.ReadValue<Vector2>();
+        SelectState();
     }
 
     private void FixedUpdate()
     {
-        
+
     }
 
     private void OnDisable()
@@ -61,7 +62,22 @@ public class Player : Character
 
     private void OnJumpInput_performed(InputAction.CallbackContext obj)
     {
+        stateMachine.Set(jumpState);
+    }
 
+    private void SelectState()
+    {
+        if (!stateMachine.State.IsComplete)
+            return;
+
+        if (contactSensor.GroundHit)
+        {
+            stateMachine.Set(groundedState);
+        }
+        else
+        {
+            stateMachine.Set(airborneState);
+        }
     }
 
     private void SetControllable(bool controllable)

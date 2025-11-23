@@ -43,13 +43,20 @@ public class InputManager : Singleton<InputManager>
 
     private void OnGameStateChanged(GameState gameState)
     {
-        if (gameState == GameState.Menu)
+        switch(gameState)
         {
-            UIMap.Enable();
-        }
-        else
-        {
-            UIMap.Disable();
+            case GameState.Menu:
+                UIMap.Enable();
+                PlayerMap.Disable();
+                Debug.Log("Disable player input");
+                break;
+
+            default:
+            case GameState.InGame:
+                UIMap.Disable();
+                PlayerMap.Enable();
+                Debug.Log("Enable player input");
+                break;
         }
     }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1529787972458512688}
   - component: {fileID: 136651101480684039}
   - component: {fileID: 1831461044268574998}
+  - component: {fileID: 661364748932411113}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -63,7 +64,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 1
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &1346817934403043302
@@ -176,6 +177,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   health: {fileID: 11400000, guid: 22789535bacdb3040a7fad4b6ebc71ed, type: 2}
+--- !u!114 &661364748932411113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147421376398659304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be11a5cbccb8454fac86c770c852888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody2D: {fileID: 6974294535136742728}
 --- !u!1 &266911676155534851
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e3bb9992ad97e4ca035807cb1cb050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkState
-  physicsController2D: {fileID: 7249943896861926337}
+  physicsController2D: {fileID: 661364748932411113}
   groundData: {fileID: 8577161922873492524}
   gravity: 0.5
   movementDirectionProvider: {fileID: 5504654485223338968}
@@ -305,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c915c0f33cda6e64ea6b4b599876f608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterIdleState
-  physicsController2D: {fileID: 7249943896861926337}
+  physicsController2D: {fileID: 661364748932411113}
   groundData: {fileID: 8577161922873492524}
   gravity: 0.5
   deceleration: 100
@@ -353,56 +367,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfb13999cf39074f998ccbf4ac087b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlopeState
-  physicsController2D: {fileID: 7249943896861926337}
+  physicsController2D: {fileID: 661364748932411113}
   groundData: {fileID: 8577161922873492524}
   gravity: 0.5
   maxSlideSpeed: 15
   slideAcceleration: 100
---- !u!1 &4668349796016976929
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5938335584759329099}
-  - component: {fileID: 7249943896861926337}
-  m_Layer: 0
-  m_Name: PhysicsController2D
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5938335584759329099
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4668349796016976929}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4347133958526611112}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7249943896861926337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4668349796016976929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4be11a5cbccb8454fac86c770c852888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody2D: {fileID: 6974294535136742728}
 --- !u!1 &5439021039333414481
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +421,7 @@ MonoBehaviour:
   maxHorizontalSpeed: 10
   acceleration: 70
   deceleration: 70
-  physicsController2D: {fileID: 7249943896861926337}
+  physicsController2D: {fileID: 661364748932411113}
   movementDirectionProvider: {fileID: 5504654485223338968}
   surfaceContactSensor: {fileID: 545334370357791567}
   jumpStrength: 20
@@ -619,7 +588,7 @@ MonoBehaviour:
   maxHorizontalSpeed: 10
   acceleration: 70
   deceleration: 70
-  physicsController2D: {fileID: 7249943896861926337}
+  physicsController2D: {fileID: 661364748932411113}
   movementDirectionProvider: {fileID: 5504654485223338968}
   surfaceContactSensor: {fileID: 545334370357791567}
 --- !u!1 &7129842918379167360
@@ -908,7 +877,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8942433189350338353}
-  - {fileID: 5938335584759329099}
   - {fileID: 2490799880641355699}
   - {fileID: 7060369400835604833}
   m_Father: {fileID: 4621764772097766533}

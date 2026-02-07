@@ -5,11 +5,12 @@ using UnityEngine;
 public abstract class State : StateMachineBehaviour
 {
     public event Action OnCompleted;
-    public virtual bool IsAvailable => true;
+
     public float TimePassed => Time.time - startTime;
 
     protected float startTime;
 
+    // Setup variables BEFORE disabling itself
     protected override void Awake()
     {
         base.Awake();
@@ -20,7 +21,10 @@ public abstract class State : StateMachineBehaviour
 
     protected void SetStateComplete()
     {
-        enabled = false;
-        OnCompleted?.Invoke();
+        if (enabled) // Only invoke the event if we are currently enabled
+        {
+            enabled = false; // We must disable before invoking the event
+            OnCompleted?.Invoke();
+        }
     }
 }

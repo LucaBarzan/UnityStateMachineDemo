@@ -10,7 +10,7 @@ public class PlayerMovement : CharacterMovement
     protected override void Awake()
     {
         base.Awake();
-        StateMachine.Add(jumpState);
+        AddState(jumpState);
     }
 
     protected override void OnEnable()
@@ -18,6 +18,14 @@ public class PlayerMovement : CharacterMovement
         base.OnEnable();
         jumpState.OnCompleted += JumpState_OnCompleted;
         SubscribeToInputEvents();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (jumpState.CanBufferJump())
+            SetCurrentState(jumpState);
     }
 
     protected override void OnDisable()
@@ -28,12 +36,14 @@ public class PlayerMovement : CharacterMovement
 
     private void SubscribeToInputEvents()
     {
-        input_Jump.action.performed += OnJumpInput_performed;
+        input_Jump.action.started += OnJumpInput_started;
+        input_Jump.action.canceled += OnJumpInput_canceled;
         input_Slide.action.performed += OnSlideInput_performed;
     }
     private void UnsubscribeFromInputEvents()
     {
-        input_Jump.action.performed -= OnJumpInput_performed;
+        input_Jump.action.performed -= OnJumpInput_started;
+        input_Jump.action.canceled -= OnJumpInput_canceled;
         input_Slide.action.performed -= OnSlideInput_performed;
     }
 
@@ -42,11 +52,25 @@ public class PlayerMovement : CharacterMovement
 
     }
 
-    private void OnJumpInput_performed(InputAction.CallbackContext obj)
+
+    private void OnJumpInput_started(InputAction.CallbackContext obj)
     {
-        StateMachine.Set(jumpState);
+        jumpState.OnJumpInputPressed();
+
+        if (jumpState.CanJump() || jumpState.CanCoyoteJump())
+            SetCurrentState(jumpState);
     }
 
+    private void OnJumpInput_canceled(InputAction.CallbackContext obj)
+    {
+        // Interrupt jump state if we are currently in the jump state
+        // Temporarely modify gravity to allows for variable jump height based on how long the player holds the jump input
+        if (jumpState.enabled)
+        {
+            airborneState.SetGravity(jumpState.EarlyStopGravity);
+            jumpState.OnJumpInputReleased();
+        }
+    }
     private void JumpState_OnCompleted() => SelectState();
 
     protected override void SelectState()

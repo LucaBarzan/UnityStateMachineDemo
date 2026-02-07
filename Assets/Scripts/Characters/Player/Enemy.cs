@@ -10,9 +10,9 @@ public class Enemy : Character
     protected override void Awake()
     {
         base.Awake();
-        StateMachine.Add(patrolState)
-            .Add(chaseState)
-            .Add(attackState);
+        AddState(patrolState)
+            .AddState(chaseState)
+            .AddState(attackState);
     }
 
     private void OnEnable()
@@ -23,7 +23,7 @@ public class Enemy : Character
 
     private void Start()
     {
-        StateMachine.Set(patrolState);
+        SetCurrentState(patrolState);
     }
 
     private void Update()
@@ -45,19 +45,19 @@ public class Enemy : Character
     private void AttackState_OnCompleted()
     {
         if (chaseState.TargetTransform != null)
-            StateMachine.Set(chaseState);
+            SetCurrentState(chaseState);
         else
-            StateMachine.Set(patrolState);
+            SetCurrentState(patrolState);
     }
 
     public void OnPlayerInsideRangeAttack()
     {
-        StateMachine.Set(attackState);
+        SetCurrentState(attackState);
     }
 
     public void OnPlayerDetected(Collider2D collider2D)
     {
         chaseState.TargetTransform = collider2D.transform;
-        StateMachine.Set(chaseState);
+        SetCurrentState(chaseState);
     }
 }

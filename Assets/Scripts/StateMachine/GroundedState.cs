@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GroundedState : State
 {
-    [SerializeField] private CharacterIdleState idleState;
+    [SerializeField] private GroundedMovementState idleState;
     [SerializeField] private WalkState walkState;
     [SerializeField] private SlopeState slopeState;
     [SerializeField] private GroundDataHandler groundData;
@@ -13,9 +13,9 @@ public class GroundedState : State
     {
         base.Awake();
 
-        StateMachine.Add(walkState)
-            .Add(idleState)
-            .Add(slopeState);
+        AddState(walkState)
+            .AddState(idleState)
+            .AddState(slopeState);
     }
 
     protected override void OnEnable()
@@ -39,16 +39,16 @@ public class GroundedState : State
     {
         if (groundData.IsOnSlope)
         {
-            StateMachine.Set(slopeState);
+            SetCurrentState(slopeState);
             return;
         }
 
         if (movementDirection == Vector2.zero)
         {
-            StateMachine.Set(idleState);
+            SetCurrentState(idleState);
             return;
         }
 
-        StateMachine.Set(walkState);
+        SetCurrentState(walkState);
     }
 }

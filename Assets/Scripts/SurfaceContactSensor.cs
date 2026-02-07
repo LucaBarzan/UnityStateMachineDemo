@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Detects surface contacts (ground, walls, and ceiling) using BoxCast queries.
@@ -7,8 +8,13 @@ using System.Collections.Generic;
 /// </summary>
 public class SurfaceContactSensor : MonoBehaviour
 {
+    public event Action<RaycastHit2D> OnGroundHitChanged;
+    public event Action<RaycastHit2D> OnCeilingHitChanged;
+    public event Action<RaycastHit2D> OnRightWallHitChanged;
+    public event Action<RaycastHit2D> OnLeftWallHitChanged;
+
     [Header("References")]
-    [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private CapsuleCollider2D capsuleCollider;
 
     [Header("Layer Masks")]
     [SerializeField] private LayerMask contactLayerMask;
@@ -18,73 +24,116 @@ public class SurfaceContactSensor : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize;
 
     [Header("Wall Detection")]
-    [SerializeField] private bool checkWalls = true;
+    [SerializeField] private bool checkRightWall = false;
+    [SerializeField] private bool checkLeftWall = false;
     [SerializeField] private Vector2 wallCheckSize;
 
     [Header("Ceiling Detection")]
-    [SerializeField] private bool checkCeiling = true;
+    [SerializeField] private bool checkCeiling = false;
     [SerializeField] private Vector2 ceilingCheckSize;
 
     public RaycastHit2D CeilingHit { get; private set; }
     public RaycastHit2D GroundHit { get; private set; }
-    public RaycastHit2D WallHit { get; private set; }
+    public RaycastHit2D RightWallHit { get; private set; }
+    public RaycastHit2D LeftWallHit { get; private set; }
 
     private RaycastHit2D[] groundHits;
     private RaycastHit2D[] ceilingHits;
-    private List<RaycastHit2D> wallHits = new List<RaycastHit2D>();
+    private RaycastHit2D[] rightWallHits;
+    private RaycastHit2D[] leftWallHits;
     private Transform Transform;
     private Vector2 groundCheckColliderSize;
     private Vector2 wallCheckColliderSize;
     private Vector2 ceilingCheckColliderSize;
+    private RaycastHit2D lastGroundHit;
+    private RaycastHit2D lastCeilingHit;
+    private RaycastHit2D lastRightWallHit;
+    private RaycastHit2D lastLeftWallHit;
 
 
     private void Awake()
     {
         Transform = transform;
 
-        if (boxCollider == null)
+        if (capsuleCollider == null)
         {
-            Debug.LogError($"[{name}] Box collider is null, {name} disabled");
+            Debug.LogError($"[{name}] Capsule collider is null, {name} disabled");
             enabled = false;
             return;
         }
 
-        groundCheckColliderSize = new Vector2(groundCheckSize.x, boxCollider.size.y);
-        wallCheckColliderSize = new Vector2(boxCollider.size.x, wallCheckSize.y);
-        ceilingCheckColliderSize = new Vector2(ceilingCheckSize.x, boxCollider.size.y);
+        groundCheckColliderSize = new Vector2(groundCheckSize.x, capsuleCollider.size.y);
+        wallCheckColliderSize = new Vector2(capsuleCollider.size.x, wallCheckSize.y);
+        ceilingCheckColliderSize = new Vector2(ceilingCheckSize.x, capsuleCollider.size.y);
     }
 
     private void FixedUpdate()
     {
         PerformCollisionChecks();
         GatherCollisionsValues();
+        CheckCollisionChanged();
     }
 
     private void PerformCollisionChecks()
     {
         if (checkGround)
-            groundHits = GetBoxCastHits(groundCheckColliderSize, groundCheckSize.y, Vector2.down);
+            groundHits = GetCapsuleCastHits(groundCheckColliderSize, groundCheckSize.y, Vector2.down);
 
         if (checkCeiling)
-            ceilingHits = GetBoxCastHits(ceilingCheckColliderSize, ceilingCheckSize.y, Vector2.up);
+            ceilingHits = GetCapsuleCastHits(ceilingCheckColliderSize, ceilingCheckSize.y, Vector2.up);
 
-        if (checkWalls)
-        {
-            wallHits.Clear();
-            wallHits.AddRange(GetBoxCastHits(wallCheckColliderSize, wallCheckSize.x, Vector2.left));
-            wallHits.AddRange(GetBoxCastHits(wallCheckColliderSize, wallCheckSize.x, Vector2.right));
-        }
+        if (checkRightWall)
+            rightWallHits = GetCapsuleCastHits(wallCheckColliderSize, wallCheckSize.x, Vector2.left);
+
+        if (checkLeftWall)
+            leftWallHits = GetCapsuleCastHits(wallCheckColliderSize, wallCheckSize.x, Vector2.right);
     }
 
     private void GatherCollisionsValues()
     {
-        GroundHit = GetFirstValidHit(groundHits);
-        CeilingHit = GetFirstValidHit(ceilingHits);
-        WallHit = GetFirstValidHit(wallHits.ToArray());
+        if (checkGround)
+            GroundHit = GetFirstValidHit(groundHits);
+
+        if (checkCeiling)
+            CeilingHit = GetFirstValidHit(ceilingHits);
+
+        if (checkRightWall)
+            RightWallHit = GetFirstValidHit(rightWallHits);
+
+        if (checkLeftWall)
+            LeftWallHit = GetFirstValidHit(leftWallHits);
     }
 
-    private RaycastHit2D[] GetBoxCastHits(Vector2 checkSize, float distance, Vector2 direction) => Physics2D.BoxCastAll(boxCollider.bounds.center,
+    private void CheckCollisionChanged()
+    {
+        if (checkGround && lastGroundHit != GroundHit)
+        {
+            lastGroundHit = GroundHit;
+            OnGroundHitChanged?.Invoke(GroundHit);
+        }
+
+        if (checkCeiling && lastCeilingHit != CeilingHit)
+        {
+            lastCeilingHit = CeilingHit;
+            OnCeilingHitChanged?.Invoke(CeilingHit);
+        }
+
+        if (checkRightWall && lastRightWallHit != RightWallHit)
+        {
+            lastRightWallHit = RightWallHit;
+            OnRightWallHitChanged?.Invoke(RightWallHit);
+        }
+
+        if (checkLeftWall && lastLeftWallHit != LeftWallHit)
+        {
+            lastLeftWallHit = LeftWallHit;
+            OnLeftWallHitChanged?.Invoke(LeftWallHit);
+        }
+    }
+
+    private RaycastHit2D[] GetCapsuleCastHits(Vector2 checkSize, float distance, Vector2 direction) => Physics2D.CapsuleCastAll(capsuleCollider.bounds.center,
             checkSize,
+            capsuleCollider.direction,
             Transform.eulerAngles.z,
             direction,
             distance,
@@ -94,47 +143,10 @@ public class SurfaceContactSensor : MonoBehaviour
     {
         foreach (var hit in hits)
         {
-            if (hit.collider != null && !Physics2D.GetIgnoreCollision(boxCollider, hit.collider))
+            if (hit.collider != null && !Physics2D.GetIgnoreCollision(capsuleCollider, hit.collider))
                 return hit;
         }
 
         return default; // returns an empty RaycastHit2D
-    }
-
-    private void DrawCheck(Vector2 offset, Vector2 size, Bounds colliderBounds)
-    {
-        Vector2 center = (Vector2)colliderBounds.center + offset;
-        Gizmos.DrawWireCube(center, size);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (boxCollider == null) return;
-
-        Gizmos.color = Color.green;
-
-        var bounds = boxCollider.bounds;
-        var halfSize = boxCollider.size * 0.5f;
-
-        if (checkGround)
-        {
-            DrawCheck(new Vector2(0f, -halfSize.y - groundCheckSize.y * 0.5f), groundCheckSize, bounds);
-        }
-
-        if (checkCeiling)
-        {
-            DrawCheck(new Vector2(0f, +halfSize.y + ceilingCheckSize.y * 0.5f), ceilingCheckSize, bounds);
-        }
-
-        if (checkWalls)
-        {
-            float horizontalOffset = halfSize.x + wallCheckSize.x * 0.5f;
-
-            // Right wall
-            DrawCheck(new Vector2(horizontalOffset, 0f), wallCheckSize, bounds);
-
-            // Left wall
-            DrawCheck(new Vector2(-horizontalOffset, 0f), wallCheckSize, bounds);
-        }
     }
 }

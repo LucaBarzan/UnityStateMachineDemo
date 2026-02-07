@@ -19,7 +19,7 @@ public class StateMachineBehaviourDebugger : MonoBehaviour
         if (!Application.isPlaying || StateMachineBehaviour == null)
             return;
 
-        statesBranch = StateMachineBehaviour.StateMachine.GetActiveStateBranch();
+        statesBranch = StateMachineBehaviour.GetActiveStateBranch();
         var stateMachineHierarchy = string.Join(" -> ", statesBranch.ConvertAll(state => state.name));
         UnityEditor.Handles.Label(Transform.position, stateMachineHierarchy);
     }

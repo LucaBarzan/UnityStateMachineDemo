@@ -1,19 +1,15 @@
 using UnityEngine;
 
-public abstract class GroundedMovementState : State
+public class GroundedMovementState : State
 {
-    [Header("References")]
     [SerializeField] protected PhysicsController2D physicsController2D;
     [SerializeField] protected GroundDataHandler groundData;
-
-    [Header("Forces")]
     [SerializeField] protected float gravity;
+    [SerializeField] protected float targetSpeed;
+    [SerializeField] protected float acceleration;
 
     protected float horizontalSpeed;
     protected Vector2 velocity;
-
-    protected abstract float TargetHorizontalSpeed { get; }
-    protected abstract float Acceleration { get; }
 
     protected override void OnEnable()
     {
@@ -33,8 +29,8 @@ public abstract class GroundedMovementState : State
     {
         horizontalSpeed = Mathf.MoveTowards(
             horizontalSpeed,
-            TargetHorizontalSpeed,
-            Acceleration * Time.deltaTime);
+            TargetHorizontalSpeed(),
+            acceleration * Time.deltaTime);
 
         // Align velocity with ground/slope direction
         velocity = horizontalSpeed * groundData.GroundDirection;
@@ -45,4 +41,6 @@ public abstract class GroundedMovementState : State
         // Small downward push to keep character grounded
         velocity -= groundData.GroundNormal * gravity;
     }
+
+    protected virtual float TargetHorizontalSpeed() => targetSpeed;
 }

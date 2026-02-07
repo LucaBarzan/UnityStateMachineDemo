@@ -26,9 +26,10 @@ public class MotionSync2D : MonoBehaviour
         var currentConnectionVelocity = GetConnectionVelocity();
         var dot = Vector2.Dot(previousConnectionVelocity, currentConnectionVelocity);
         var distance = (previousConnectionVelocity - currentConnectionVelocity).sqrMagnitude;
-        Debug.Log($"previous {previousConnectionVelocity} current {currentConnectionVelocity}");
-        Debug.Log($"dot {dot}");
-        Debug.Log($"distance {distance}");
+
+        // Debug.Log($"previous {previousConnectionVelocity} current {currentConnectionVelocity}");
+        // Debug.Log($"dot {dot}");
+        // Debug.Log($"distance {distance}");
 
         if (connectedCollider2D == other && distance > 0.1f)
         {

@@ -6,15 +6,17 @@ public class CharacterMovement : StateMachineBehaviour
     public Vector3 Position => Transform.position;
 
     [SerializeField] private SurfaceContactSensor contactSensor;
+    [SerializeField] protected MovementDirectionProvider movementDirectionProvider;
     [SerializeField] private GroundedState groundedState;
-    [SerializeField] private AirborneState airborneState;
+    [SerializeField] protected AirborneState airborneState;
 
+    private float horizontalDirection;
 
     protected override void Awake()
     {
         base.Awake();
 
-        StateMachine.Add(groundedState).Add(airborneState);
+        AddState(groundedState).AddState(airborneState);
     }
 
     protected virtual void OnEnable()
@@ -29,15 +31,30 @@ public class CharacterMovement : StateMachineBehaviour
 
     protected virtual void Start() => SelectState();
 
+    protected virtual void Update()
+    {
+        SetFacingDirection(movementDirectionProvider.MoveDirection.x);
+    }
+
     protected virtual void SelectState()
     {
         if (contactSensor.GroundHit)
         {
-            StateMachine.Set(groundedState);
+            SetCurrentState(groundedState);
         }
         else
         {
-            StateMachine.Set(airborneState);
+            SetCurrentState(airborneState);
         }
+    }
+
+    private void SetFacingDirection(float horizontalDirection)
+    {
+        if (horizontalDirection == 0) // No horizontal input, keep current facing direction
+            return;
+
+        var facingDirection = Mathf.Sign(horizontalDirection);
+        var horizontalScale = Mathf.Abs(Transform.localScale.x) * facingDirection;
+        Transform.localScale = new Vector3(horizontalScale, Transform.localScale.y, Transform.localScale.z);
     }
 }

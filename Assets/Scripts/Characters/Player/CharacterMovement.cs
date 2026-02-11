@@ -8,9 +8,7 @@ public class CharacterMovement : StateMachineBehaviour
     [SerializeField] private SurfaceContactSensor contactSensor;
     [SerializeField] protected MovementDirectionProvider movementDirectionProvider;
     [SerializeField] private GroundedState groundedState;
-    [SerializeField] protected BaseAirborneState<AirborneStateDataSO> airborneState;
-
-    private float horizontalDirection;
+    [SerializeField] protected AirborneState airborneState;
 
     protected override void Awake()
     {
@@ -25,16 +23,16 @@ public class CharacterMovement : StateMachineBehaviour
         airborneState.OnCompleted += AirborneState_OnCompleted;
     }
 
-    private void AirborneState_OnCompleted() => SelectState();
-
-    private void GroundedState_OnCompleted() => SelectState();
-
     protected virtual void Start() => SelectState();
 
     protected virtual void Update()
     {
         SetFacingDirection(movementDirectionProvider.MoveDirection.x);
     }
+
+    private void AirborneState_OnCompleted() => SelectState();
+
+    private void GroundedState_OnCompleted() => SelectState();
 
     protected virtual void SelectState()
     {

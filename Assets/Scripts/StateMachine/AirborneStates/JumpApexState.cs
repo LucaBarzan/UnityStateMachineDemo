@@ -1,11 +1,8 @@
 using UnityEngine;
 
-public class JumpApexState : AirborneState
+public class JumpApexState : BaseAirborneState<JumpApexStateDataSO>
 {
-    public float ApexTime => apexTime;
-
-    [Tooltip("The time the player will be in the apex state, in seconds.\nWhen 0 this State is completely ignored")]
-    [SerializeField] private float apexTime = 0.0f;
+    public float ApexTime => stateData.ApexTime;
 
     protected override void OnEnable()
     {

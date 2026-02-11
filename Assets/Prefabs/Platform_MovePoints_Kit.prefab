@@ -126,7 +126,7 @@ MonoBehaviour:
   movementDirectionProvider: {fileID: 5712137907715440294}
   physicsController2D: {fileID: 4176461434300609212}
   patrolState: {fileID: 6378972182520047083}
-  speed: 3
+  speed: 2
 --- !u!114 &4176461434300609212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,9 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6339345498502b741a2c362f98439051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IdleState
+  stateData: {fileID: 11400000, guid: c93311d421f4a8544b0d714a44712434, type: 2}
   movementDirectionProvider: {fileID: 5712137907715440294}
-  useTimer: 0
-  idleTime: 0
 --- !u!1 &4402726617217038607
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,10 +578,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fca7e3e198e8b74eafd81520309fb9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveToTargetState
+  stateData: {fileID: 11400000, guid: 550cd35c9eb5c794093570cbf9e9cfd9, type: 2}
   TargetTransform: {fileID: 0}
   myTransform: {fileID: 6419646513938380954}
   movementDirectionProvider: {fileID: 5712137907715440294}
-  reachDistance: 0.1
 --- !u!1 &7975518509251363872
 GameObject:
   m_ObjectHideFlags: 0

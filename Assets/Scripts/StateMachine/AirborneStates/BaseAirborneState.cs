@@ -1,13 +1,11 @@
 using UnityEngine;
 
-public class AirborneState : State
+public abstract class BaseAirborneState<T> : State where T : AirborneStateDataSO
 {
-    [SerializeField] private float gravity;
-    [SerializeField] private float maxFallSpeed;
-    [SerializeField] private float maxHorizontalSpeed;
-    [SerializeField] private float acceleration;
-    [SerializeField] private float deceleration;
+    [Header("State Data")]
+    [SerializeField] protected T stateData;
 
+    [Header("State References")]
     [SerializeField] protected PhysicsController2D physicsController2D;
     [SerializeField] private MovementDirectionProvider movementDirectionProvider;
     [SerializeField] protected SurfaceContactSensor surfaceContactSensor;
@@ -15,11 +13,11 @@ public class AirborneState : State
     protected Vector2 velocity;
     private Vector2 movementDirection => movementDirectionProvider.MoveDirection;
     private float horizontalSpeed = 0.0f;
-    private float originalGravity;
+    private float gravity;
 
     protected override void Awake()
     {
-        originalGravity = gravity;
+        gravity = stateData.Gravity;
 
         base.Awake(); // Must be called after setting up variables, otherwise it will disable itself before we can setup variables
     }
@@ -47,7 +45,7 @@ public class AirborneState : State
 
     protected override void OnDisable()
     {
-        gravity = originalGravity;
+        ResetGravity();
         base.OnDisable();
     }
 
@@ -57,14 +55,14 @@ public class AirborneState : State
 
         if (horizontalInput == 0)
         {
-            horizontalSpeed = Mathf.MoveTowards(horizontalSpeed, 0, deceleration * Time.fixedDeltaTime);
+            horizontalSpeed = Mathf.MoveTowards(horizontalSpeed, 0, stateData.Deceleration * Time.fixedDeltaTime);
         }
         // Is grounded or on the air
         else
         {
-            float horizontalTargetSpeed = maxHorizontalSpeed * horizontalInput;
+            float horizontalTargetSpeed = stateData.MaxHorizontalSpeed * horizontalInput;
 
-            horizontalSpeed = Mathf.MoveTowards(horizontalSpeed, horizontalTargetSpeed, acceleration * Time.fixedDeltaTime);
+            horizontalSpeed = Mathf.MoveTowards(horizontalSpeed, horizontalTargetSpeed, stateData.Acceleration * Time.fixedDeltaTime);
         }
 
         velocity.x = horizontalSpeed;
@@ -72,12 +70,12 @@ public class AirborneState : State
 
     private void HandleGravity()
     {
-        velocity.y = Mathf.MoveTowards(velocity.y, -maxFallSpeed, gravity * Time.deltaTime);
+        velocity.y = Mathf.MoveTowards(velocity.y, -stateData.MaxFallSpeed, gravity * Time.deltaTime);
     }
 
     protected virtual bool IsStateComplete() => surfaceContactSensor.GroundHit;
 
     public void SetGravity(float gravity) => this.gravity = gravity;
 
-    public void ResetGravity() => gravity = originalGravity;
+    public void ResetGravity() => gravity = stateData.Gravity;
 }

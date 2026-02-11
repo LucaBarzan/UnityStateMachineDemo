@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class JumpState : State
 {
-    public float EarlyStopGravity => jumpEarlyStopGravity;
+    [Header("State Data")]
+    [SerializeField] private JumpStateDataSO stateData;
 
+    [Header("State References")]
+    [SerializeField] private SurfaceContactSensor surfaceContactSensor;
     [SerializeField] private JumpRiseState riseState;
     [SerializeField] private JumpApexState apexState;
-    [SerializeField] private SurfaceContactSensor surfaceContactSensor;
-    [SerializeField] private float jumpCoyoteTime = 0.075f;
-    [SerializeField] private float jumpBufferTime = 0.15f;
-    [SerializeField] private float jumpEarlyStopGravity = 160f;
+
+    public float EarlyStopGravity => stateData.JumpEarlyStopGravity;
 
     private float bufferJumpInputTimePressed;
     private float coyoteLeftGroundTime;
@@ -81,11 +82,11 @@ public class JumpState : State
 
     // Can only perform coyote jump if not currently jumping (!enabled),
     // and jump input was pressed within the coyote time
-    public bool CanCoyoteJump() => !enabled && Time.time - coyoteLeftGroundTime <= jumpCoyoteTime;
+    public bool CanCoyoteJump() => !enabled && Time.time - coyoteLeftGroundTime <= stateData.JumpCoyoteTime;
 
     // Can only perform buffer jump if not currently jumping (!enabled),
     // is grounded, and jump input was pressed within the buffer time
-    public bool CanBufferJump() => !enabled && CanJump() && Time.time - bufferJumpInputTimePressed <= jumpBufferTime;
+    public bool CanBufferJump() => !enabled && CanJump() && Time.time - bufferJumpInputTimePressed <= stateData.JumpBufferTime;
 
     public void OnJumpInputPressed() => bufferJumpInputTimePressed = Time.time;
 

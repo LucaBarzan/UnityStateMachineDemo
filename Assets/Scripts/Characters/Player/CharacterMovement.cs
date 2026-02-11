@@ -8,7 +8,7 @@ public class CharacterMovement : StateMachineBehaviour
     [SerializeField] private SurfaceContactSensor contactSensor;
     [SerializeField] protected MovementDirectionProvider movementDirectionProvider;
     [SerializeField] private GroundedState groundedState;
-    [SerializeField] protected AirborneState airborneState;
+    [SerializeField] protected BaseAirborneState<AirborneStateDataSO> airborneState;
 
     private float horizontalDirection;
 

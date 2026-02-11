@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class AttackState : State
 {
+    [Header("State Data")]
+    [SerializeField] private AttackStateDataSO stateData;
+
+    [Header("State References")]
     [SerializeField] private MovementDirectionProvider movementDirectionProvider;
     [SerializeField] private GameObject attackObject;
-    [SerializeField] private float antecipationTime = 1.0f;
-    [SerializeField] private float attackTime = 1.0f;
 
     private float attackTimer;
     private float antecipationTimer;
@@ -20,7 +22,7 @@ public class AttackState : State
     {
         base.OnEnable();
         movementDirectionProvider.Set(Vector2.zero);
-        antecipationTimer = Time.time + antecipationTime;
+        antecipationTimer = Time.time + stateData.AnticipationTime;
         subState = AttackSubState.antecipation;
     }
 
@@ -31,7 +33,7 @@ public class AttackState : State
             case AttackSubState.antecipation:
                 if (Time.time > antecipationTimer)
                 {
-                    attackTimer = Time.time + attackTime;
+                    attackTimer = Time.time + stateData.AttackTime;
                     attackObject.SetActive(true);
                     subState = AttackSubState.attacked;
                 }

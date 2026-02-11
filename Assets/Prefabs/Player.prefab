@@ -120,7 +120,7 @@ MonoBehaviour:
   contactSensor: {fileID: 545334370357791567}
   movementDirectionProvider: {fileID: 5504654485223338968}
   groundedState: {fileID: 120623100815655185}
-  airborneState: {fileID: 662273430439014063}
+  airborneState: {fileID: 5976952013596994319}
   jumpState: {fileID: 1081636850604956627}
   input_Jump: {fileID: 0}
   input_Slide: {fileID: 0}
@@ -314,15 +314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b92e2fd4b32c7649bdd08a9c6ecbce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpRiseState
-  gravity: 80
-  maxFallSpeed: 30
-  maxHorizontalSpeed: 7.5
-  acceleration: 70
-  deceleration: 70
+  stateData: {fileID: 11400000, guid: 75ee5a08c9a2c2442b6b80da6ee9edb7, type: 2}
   physicsController2D: {fileID: 661364748932411113}
   movementDirectionProvider: {fileID: 5504654485223338968}
   surfaceContactSensor: {fileID: 545334370357791567}
-  jumpStrength: 20
 --- !u!1 &1234848485023740100
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,11 +397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e3bb9992ad97e4ca035807cb1cb050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkState
+  stateData: {fileID: 11400000, guid: 4f63756e251de604cb52a503ab8b7ec4, type: 2}
   physicsController2D: {fileID: 661364748932411113}
   groundData: {fileID: 8577161922873492524}
-  gravity: 0.5
-  targetSpeed: 7.5
-  acceleration: 100
   movementDirectionProvider: {fileID: 5504654485223338968}
 --- !u!1 &3080109105980919820
 GameObject:
@@ -452,11 +445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b961bdff2302a04badd38e41b0839e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundedMovementState
+  stateData: {fileID: 11400000, guid: 8f28689a3f918f641a3955f513851433, type: 2}
   physicsController2D: {fileID: 661364748932411113}
   groundData: {fileID: 8577161922873492524}
-  gravity: 0.5
-  targetSpeed: 0
-  acceleration: 100
 --- !u!1 &4096515185351571197
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,11 +492,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfb13999cf39074f998ccbf4ac087b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlopeState
+  stateData: {fileID: 11400000, guid: 748b6b2df5119a446b6f4bc32e6b3ee1, type: 2}
   physicsController2D: {fileID: 661364748932411113}
   groundData: {fileID: 8577161922873492524}
-  gravity: 0.5
-  targetSpeed: 15
-  acceleration: 100
 --- !u!1 &5439021039333414481
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,12 +541,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681df75cf742e314a8c01d10d284dd4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateData: {fileID: 11400000, guid: 3043adc63ff2dd147b6ae2fce0579a84, type: 2}
+  surfaceContactSensor: {fileID: 545334370357791567}
   riseState: {fileID: 7838027773911528525}
   apexState: {fileID: 2347174436017123840}
-  surfaceContactSensor: {fileID: 545334370357791567}
-  jumpCoyoteTime: 0.075
-  jumpBufferTime: 0.15
-  jumpEarlyStopGravity: 160
 --- !u!1 &6141240206040812347
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7303277386796493797}
-  - component: {fileID: 662273430439014063}
+  - component: {fileID: 5976952013596994319}
   m_Layer: 0
   m_Name: Airborne
   m_TagString: Untagged
@@ -795,7 +782,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6570548226976821775}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &662273430439014063
+--- !u!114 &5976952013596994319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -804,14 +791,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6995525345986449926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ed815625c56d8341bb4dffe06d4e56a, type: 3}
+  m_Script: {fileID: 11500000, guid: 400ee3f4fcfe90243a4456f596d4694d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: 80
-  maxFallSpeed: 10
-  maxHorizontalSpeed: 7.5
-  acceleration: 70
-  deceleration: 70
+  m_EditorClassIdentifier: Assembly-CSharp::AirborneState
+  stateData: {fileID: 11400000, guid: d82b2a82ce457ac498d9f3b8f31eb7e4, type: 2}
   physicsController2D: {fileID: 661364748932411113}
   movementDirectionProvider: {fileID: 5504654485223338968}
   surfaceContactSensor: {fileID: 545334370357791567}
@@ -1332,12 +1315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfdf2a59a3c64e645889dcafe0820781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpApexState
-  gravity: 0
-  maxFallSpeed: 0
-  maxHorizontalSpeed: 7.5
-  acceleration: 70
-  deceleration: 70
+  stateData: {fileID: 11400000, guid: 96960b987a437ff4494cea273e3f588c, type: 2}
   physicsController2D: {fileID: 661364748932411113}
   movementDirectionProvider: {fileID: 5504654485223338968}
   surfaceContactSensor: {fileID: 545334370357791567}
-  apexTime: 0

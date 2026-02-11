@@ -1045,9 +1045,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6339345498502b741a2c362f98439051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IdleState
+  stateData: {fileID: 11400000, guid: 8e81554eb005b9e4e84482e732dd534c, type: 2}
   movementDirectionProvider: {fileID: 6861006403911731042}
-  useTimer: 1
-  idleTime: 1
 --- !u!114 &567510984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2192,11 +2191,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b961bdff2302a04badd38e41b0839e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundedMovementState
+  stateData: {fileID: 11400000, guid: 707d5c6bc4397864daab9b1a91527d6c, type: 2}
   physicsController2D: {fileID: 6127235245224978653}
   groundData: {fileID: 1707383595}
-  gravity: 0.5
-  targetSpeed: 0
-  acceleration: 100
 --- !u!1 &1302616294
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,10 +2276,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb92e6536287ea4b9b2575b0e734730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaseState
+  stateData: {fileID: 11400000, guid: 262a6d5986a18d941a5238ec3c6df657, type: 2}
   TargetTransform: {fileID: 0}
   myTransform: {fileID: 8194150953567993753}
   movementDirectionProvider: {fileID: 6861006403911731042}
-  reachDistance: 0.1
   attackRangeSensor: {fileID: 933343969}
 --- !u!1 &1452051879
 GameObject:
@@ -2328,11 +2325,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfb13999cf39074f998ccbf4ac087b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlopeState
+  stateData: {fileID: 11400000, guid: 9a3bf929ba2c7424cafcbbd82826cb3c, type: 2}
   physicsController2D: {fileID: 6127235245224978653}
   groundData: {fileID: 1707383595}
-  gravity: 0.5
-  targetSpeed: 15
-  acceleration: 100
 --- !u!1 &1525342509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,11 +2372,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e3bb9992ad97e4ca035807cb1cb050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkState
+  stateData: {fileID: 11400000, guid: 3d07fd0373a559c449a25496eb70d2b3, type: 2}
   physicsController2D: {fileID: 6127235245224978653}
   groundData: {fileID: 1707383595}
-  gravity: 0.5
-  targetSpeed: 7
-  acceleration: 100
   movementDirectionProvider: {fileID: 6861006403911731042}
 --- !u!1 &1607988958
 GameObject:
@@ -2973,10 +2966,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fca7e3e198e8b74eafd81520309fb9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveToTargetState
+  stateData: {fileID: 11400000, guid: 7bc670b79bcadc444bb10659d337546c, type: 2}
   TargetTransform: {fileID: 0}
   myTransform: {fileID: 8194150953567993753}
   movementDirectionProvider: {fileID: 6861006403911731042}
-  reachDistance: 0.1
 --- !u!1 &2107214865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3233,17 +3226,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1731658156387338385, guid: 24754fe9c5656444fb9bff050fc68436, type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6396662457987587843, guid: 24754fe9c5656444fb9bff050fc68436, type: 3}
       propertyPath: m_Name
       value: Platform_MovePoints_Kit
-      objectReference: {fileID: 0}
-    - target: {fileID: 6396662457987587843, guid: 24754fe9c5656444fb9bff050fc68436, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8179515449885580803, guid: 24754fe9c5656444fb9bff050fc68436, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3419,14 +3404,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed815625c56d8341bb4dffe06d4e56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 80
-  maxFallSpeed: 10
-  maxHorizontalSpeed: 10
-  acceleration: 70
-  deceleration: 70
+  <Transform>k__BackingField: {fileID: 0}
+  <State>k__BackingField: {fileID: 0}
+  startTime: 0
+  stateData: {fileID: 11400000, guid: d82b2a82ce457ac498d9f3b8f31eb7e4, type: 2}
   physicsController2D: {fileID: 6127235245224978653}
   movementDirectionProvider: {fileID: 6861006403911731042}
   surfaceContactSensor: {fileID: 3892760215084908627}
+  velocity: {x: 0, y: 0}
+  horizontalSpeed: 0
+  gravity: 0
 --- !u!1 &5210731835066660092
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,6 +3514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6111035482415685881}
   - component: {fileID: 4081501919911814579}
+  - component: {fileID: 6111035482415685882}
   m_Layer: 0
   m_Name: Airborne
   m_TagString: Untagged
@@ -3576,6 +3564,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7691005491183532307}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6111035482415685882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5801110548931647770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400ee3f4fcfe90243a4456f596d4694d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AirborneState
+  stateData: {fileID: 11400000, guid: d82b2a82ce457ac498d9f3b8f31eb7e4, type: 2}
+  physicsController2D: {fileID: 6127235245224978653}
+  movementDirectionProvider: {fileID: 6861006403911731042}
+  surfaceContactSensor: {fileID: 3892760215084908627}
 --- !u!114 &6127235245224978653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3768,7 +3772,7 @@ MonoBehaviour:
   contactSensor: {fileID: 3892760215084908627}
   movementDirectionProvider: {fileID: 6861006403911731042}
   groundedState: {fileID: 2115226196}
-  airborneState: {fileID: 4081501919911814579}
+  airborneState: {fileID: 6111035482415685882}
 --- !u!114 &8194150953567993756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3872,10 +3876,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e387d6f8a63d16043a5eb0c60f5fc56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateData: {fileID: 11400000, guid: 23b791293ca070249983b45687836dba, type: 2}
   movementDirectionProvider: {fileID: 6861006403911731042}
   attackObject: {fileID: 1681773549}
-  antecipationTime: 1
-  attackTime: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

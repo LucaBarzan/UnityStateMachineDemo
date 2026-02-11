@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class MoveToTargetState : State
 {
+    [Header("State Data")]
+    [SerializeField] private MoveToTargetStateDataSO stateData;
+
+    [Header("State References")]
     public Transform TargetTransform;
     [SerializeField] private Transform myTransform;
     [SerializeField] private MovementDirectionProvider movementDirectionProvider;
-    [SerializeField] private float reachDistance = 0.1f;
     
     private Vector2 lastPosition;
     private float squaredReachDistance;
@@ -14,7 +17,7 @@ public class MoveToTargetState : State
     {
         base.OnEnable();
         movementDirectionProvider.Set(GetTargetDirection());
-        squaredReachDistance = reachDistance * reachDistance;
+        squaredReachDistance = stateData.ReachDistance * stateData.ReachDistance;
         lastPosition = myTransform.position;
     }
 

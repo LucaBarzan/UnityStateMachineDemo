@@ -10,7 +10,7 @@ public class GroundDataHandler : MonoBehaviour
     // Slide Data
     public Vector2 SlideDirection => slideDirection;
     public float SlideHorizontalDirection => slideHorizontalDirection;
-    
+
     // Slope Data
     public bool IsOnSlope => isOnSlope;
     public float SlopeAngle => slopeAngle;
@@ -27,12 +27,12 @@ public class GroundDataHandler : MonoBehaviour
     // Slope data
     private float slopeAngle = 0.0f;
     private bool isOnSlope = false;
-    
+
     // Slide data
     private Vector2 slideDirection = Vector2.zero;
     private float slideHorizontalDirection = 0.0f;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!surfaceContactSensor.GroundHit)
             return;

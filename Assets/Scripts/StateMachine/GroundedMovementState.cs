@@ -12,11 +12,16 @@ public class GroundedMovementState : State
     protected float horizontalSpeed;
     protected Vector2 velocity;
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
-        base.OnEnable();
         velocity = physicsController2D.Velocity;
         horizontalSpeed = velocity.x;
+
+        HandleHorizontal();
+        ApplyGroundGravity();
+        physicsController2D.SetVelocity(velocity);
+
+        base.EnterState();
     }
 
     private void Update()

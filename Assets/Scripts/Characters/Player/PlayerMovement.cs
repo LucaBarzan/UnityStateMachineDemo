@@ -65,7 +65,7 @@ public class PlayerMovement : CharacterMovement
     {
         // Interrupt jump state if we are currently in the jump state
         // Temporarely modify gravity to allows for variable jump height based on how long the player holds the jump input
-        if (jumpState.enabled)
+        if (jumpState.Running)
         {
             airborneState.SetGravity(jumpState.EarlyStopGravity);
             jumpState.OnJumpInputReleased();
@@ -75,7 +75,7 @@ public class PlayerMovement : CharacterMovement
 
     protected override void SelectState()
     {
-        if (!jumpState.enabled)
+        if (!jumpState.Running)
             base.SelectState();
     }
 }

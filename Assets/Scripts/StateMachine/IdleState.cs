@@ -8,9 +8,9 @@ public class IdleState : State
     [Header("State References")]
     [SerializeField] private MovementDirectionProvider movementDirectionProvider;
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
-        base.OnEnable();
+        base.EnterState();
         movementDirectionProvider.Set(Vector2.zero);
         
         if (stateData.UseTimer)

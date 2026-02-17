@@ -24,7 +24,7 @@ public class JumpState : State
         AddState(riseState).AddState(apexState);
     }
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
         coyoteLeftGroundTime = 0.0f;
         bufferJumpInputTimePressed = 0.0f;
@@ -34,12 +34,12 @@ public class JumpState : State
         riseState.OnCompleted += RiseState_OnCompleted;
         apexState.OnCompleted += ApexState_OnCompleted;
 
-        base.OnEnable();
+        base.EnterState();
     }
 
-    protected override void OnDisable()
+    public override void ExitState()
     {
-        base.OnDisable();
+        base.ExitState();
 
         riseState.OnCompleted -= RiseState_OnCompleted;
         apexState.OnCompleted -= ApexState_OnCompleted;

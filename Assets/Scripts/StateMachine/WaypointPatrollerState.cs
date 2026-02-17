@@ -16,9 +16,9 @@ public class WaypointPatrollerState : State
         AddState(moveToTargetState).AddState(idleState);
     }
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
-        base.OnEnable();
+        base.EnterState();
 
         moveToTargetState.OnCompleted += MoveToTargetState_OnCompleted;
         idleState.OnCompleted += IdleState_OnCompleted;
@@ -27,9 +27,9 @@ public class WaypointPatrollerState : State
         SetCurrentState(moveToTargetState);
     }
 
-    protected override void OnDisable()
+    public override void ExitState()
     {
-        base.OnDisable();
+        base.ExitState();
         moveToTargetState.OnCompleted -= MoveToTargetState_OnCompleted;
         idleState.OnCompleted -= IdleState_OnCompleted;
     }

@@ -22,15 +22,17 @@ public abstract class BaseAirborneState<T> : State where T : AirborneStateDataSO
         base.Awake(); // Must be called after setting up variables, otherwise it will disable itself before we can setup variables
     }
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
-        base.OnEnable();
+        base.EnterState();
 
         velocity = physicsController2D.Velocity;
         horizontalSpeed = velocity.x;
+
+        surfaceContactSensor.OnGroundHitChanged += SurfaceContactSensor_OnGroundHitChanged;
     }
 
-    protected virtual void Update()
+    private void FixedUpdate()
     {
         if (IsStateComplete())
         {
@@ -43,10 +45,20 @@ public abstract class BaseAirborneState<T> : State where T : AirborneStateDataSO
         physicsController2D.SetVelocity(velocity);
     }
 
-    protected override void OnDisable()
+    public override void ExitState()
     {
+        base.ExitState();
+        surfaceContactSensor.OnGroundHitChanged -= SurfaceContactSensor_OnGroundHitChanged;
         ResetGravity();
-        base.OnDisable();
+    }
+
+    private void SurfaceContactSensor_OnGroundHitChanged(RaycastHit2D hit)
+    {
+        if (Running && IsStateComplete()) // 
+        {
+            SetStateComplete();
+            return;
+        }
     }
 
     private void HandleDirection()
@@ -70,7 +82,7 @@ public abstract class BaseAirborneState<T> : State where T : AirborneStateDataSO
 
     private void HandleGravity()
     {
-        velocity.y = Mathf.MoveTowards(velocity.y, -stateData.MaxFallSpeed, gravity * Time.deltaTime);
+        velocity.y = Mathf.MoveTowards(velocity.y, -stateData.MaxFallSpeed, gravity * Time.fixedDeltaTime);
     }
 
     protected virtual bool IsStateComplete() => surfaceContactSensor.GroundHit;

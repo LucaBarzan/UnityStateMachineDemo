@@ -996,6 +996,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fbd3a34c5a0aa47a1f5ee9e37ad334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrolState
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   waypoints:
   - {fileID: 418279982}
   - {fileID: 1781975122}
@@ -1045,6 +1051,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6339345498502b741a2c362f98439051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IdleState
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   stateData: {fileID: 11400000, guid: 8e81554eb005b9e4e84482e732dd534c, type: 2}
   movementDirectionProvider: {fileID: 6861006403911731042}
 --- !u!114 &567510984
@@ -2191,6 +2203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b961bdff2302a04badd38e41b0839e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundedMovementState
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   stateData: {fileID: 11400000, guid: 707d5c6bc4397864daab9b1a91527d6c, type: 2}
   physicsController2D: {fileID: 6127235245224978653}
   groundData: {fileID: 1707383595}
@@ -2276,6 +2294,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb92e6536287ea4b9b2575b0e734730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaseState
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   stateData: {fileID: 11400000, guid: 262a6d5986a18d941a5238ec3c6df657, type: 2}
   TargetTransform: {fileID: 0}
   myTransform: {fileID: 8194150953567993753}
@@ -2325,6 +2349,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecfb13999cf39074f998ccbf4ac087b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlopeState
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   stateData: {fileID: 11400000, guid: 9a3bf929ba2c7424cafcbbd82826cb3c, type: 2}
   physicsController2D: {fileID: 6127235245224978653}
   groundData: {fileID: 1707383595}
@@ -2372,6 +2402,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e3bb9992ad97e4ca035807cb1cb050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkState
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   stateData: {fileID: 11400000, guid: 3d07fd0373a559c449a25496eb70d2b3, type: 2}
   physicsController2D: {fileID: 6127235245224978653}
   groundData: {fileID: 1707383595}
@@ -2966,6 +3002,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fca7e3e198e8b74eafd81520309fb9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveToTargetState
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   stateData: {fileID: 11400000, guid: 7bc670b79bcadc444bb10659d337546c, type: 2}
   TargetTransform: {fileID: 0}
   myTransform: {fileID: 8194150953567993753}
@@ -3155,6 +3197,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa1154c7b746774f84aa31c912f377e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   idleState: {fileID: 1287686106}
   walkState: {fileID: 1525342511}
   slopeState: {fileID: 1452051881}
@@ -3392,28 +3440,6 @@ MonoBehaviour:
   wallCheckSize: {x: 0.05, y: 0.9}
   checkCeiling: 1
   ceilingCheckSize: {x: 0.5, y: 0.05}
---- !u!114 &4081501919911814579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5801110548931647770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ed815625c56d8341bb4dffe06d4e56a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Transform>k__BackingField: {fileID: 0}
-  <State>k__BackingField: {fileID: 0}
-  startTime: 0
-  stateData: {fileID: 11400000, guid: d82b2a82ce457ac498d9f3b8f31eb7e4, type: 2}
-  physicsController2D: {fileID: 6127235245224978653}
-  movementDirectionProvider: {fileID: 6861006403911731042}
-  surfaceContactSensor: {fileID: 3892760215084908627}
-  velocity: {x: 0, y: 0}
-  horizontalSpeed: 0
-  gravity: 0
 --- !u!1 &5210731835066660092
 GameObject:
   m_ObjectHideFlags: 0
@@ -3513,7 +3539,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6111035482415685881}
-  - component: {fileID: 4081501919911814579}
   - component: {fileID: 6111035482415685882}
   m_Layer: 0
   m_Name: Airborne
@@ -3576,6 +3601,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400ee3f4fcfe90243a4456f596d4694d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AirborneState
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   stateData: {fileID: 11400000, guid: d82b2a82ce457ac498d9f3b8f31eb7e4, type: 2}
   physicsController2D: {fileID: 6127235245224978653}
   movementDirectionProvider: {fileID: 6861006403911731042}
@@ -3876,6 +3907,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e387d6f8a63d16043a5eb0c60f5fc56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
   stateData: {fileID: 11400000, guid: 23b791293ca070249983b45687836dba, type: 2}
   movementDirectionProvider: {fileID: 6861006403911731042}
   attackObject: {fileID: 1681773549}

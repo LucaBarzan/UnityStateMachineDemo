@@ -30,16 +30,16 @@ public abstract class StateMachineBehaviour : MonoBehaviour
         if (ContainsState(newState) && (newState != State || forceReset))
         {
             if (State != null)
-                State.enabled = false;
+                State.ExitState();
 
             State = newState;
 
             if (State != null)
-                State.enabled = true;
+                State.EnterState();
         }
     }
 
-    public void DisableAllStates()
+    private void DisableAllStates()
     {
         foreach (var state in states)
             state.enabled = false;
@@ -54,7 +54,7 @@ public abstract class StateMachineBehaviour : MonoBehaviour
         if (states == null)
             states = new List<State>();
 
-        if (State == null || !State.enabled)
+        if (State == null || !State.Running)
             return states;
 
         states.Add(State);

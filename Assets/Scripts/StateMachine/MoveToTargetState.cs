@@ -13,9 +13,9 @@ public class MoveToTargetState : State
     private Vector2 lastPosition;
     private float squaredReachDistance;
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
-        base.OnEnable();
+        base.EnterState();
         movementDirectionProvider.Set(GetTargetDirection());
         squaredReachDistance = stateData.ReachDistance * stateData.ReachDistance;
         lastPosition = myTransform.position;

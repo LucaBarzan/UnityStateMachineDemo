@@ -18,9 +18,9 @@ public class GroundedState : State
             .AddState(slopeState);
     }
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
-        base.OnEnable();
+        base.EnterState();
         SelectState();
     }
 

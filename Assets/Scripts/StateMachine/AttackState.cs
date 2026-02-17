@@ -18,9 +18,9 @@ public class AttackState : State
         attacked
     }
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
-        base.OnEnable();
+        base.EnterState();
         movementDirectionProvider.Set(Vector2.zero);
         antecipationTimer = Time.time + stateData.AnticipationTime;
         subState = AttackSubState.antecipation;
@@ -48,9 +48,9 @@ public class AttackState : State
         }
     }
 
-    protected override void OnDisable()
+    public override void ExitState()
     {
-        base.OnDisable();
+        base.ExitState();
         attackObject.SetActive(false);
     }
 }

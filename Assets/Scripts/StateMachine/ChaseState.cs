@@ -4,15 +4,15 @@ public class ChaseState : MoveToTargetState
 {
     [SerializeField] private GameObject attackRangeSensor;
 
-    protected override void OnEnable()
+    public override void EnterState()
     {
-        base.OnEnable();
+        base.EnterState();
         attackRangeSensor.SetActive(true);
     }
 
-    protected override void OnDisable()
+    public override void ExitState()
     {
-        base.OnDisable();
+        base.ExitState();
         attackRangeSensor.SetActive(false);
     }
 }
